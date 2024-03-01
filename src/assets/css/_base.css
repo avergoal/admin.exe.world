@@ -1,0 +1,197 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-weight: normal;
+}
+
+body {
+    height: 100vh;
+    min-height: 791px;
+    font-family: var(--font-raleway), Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    color: var(--black-primary);
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    min-height: 791px;
+    flex-direction: column;
+}
+
+button {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+    font-weight: inherit;
+}
+
+a:active {
+    color: unset;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0;
+}
+
+h2 {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0.0025em;
+}
+
+h3 {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.0015em;
+}
+
+h4 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+}
+
+.sub-1 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.0015em;
+}
+
+.sub-2 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.001em;
+}
+
+.b-1-regular,
+.b-1-medium,
+.b-1-bold {
+    font-size: 16px;
+    letter-spacing: 0.001em;
+    line-height: 28px;
+}
+
+.b-1-compact {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.001em;
+    text-align: left;
+}
+
+.b-1-regular {
+    font-weight: 400;
+}
+
+.b-1-medium {
+    font-weight: 500;
+}
+
+.b-1-bold {
+    font-weight: 700;
+}
+
+.b-2-regular,
+.b-2-medium,
+.b-2-bold {
+    font-size: 14px;
+    letter-spacing: 0.0015em;
+    line-height: 24px;
+}
+
+.b-2-compact {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+}
+
+.b-2-regular {
+    font-weight: 400;
+}
+
+.b-2-medium {
+    font-weight: 500;
+}
+
+.b-2-bold {
+    font-weight: 700;
+}
+
+.c-1-regular,
+.c-1-medium,
+.c-1-bold {
+    font-size: 12px;
+    letter-spacing: 0.004em;
+    line-height: 16px;
+}
+
+.c-1-regular {
+    font-weight: 400;
+}
+
+.c-1-medium {
+    font-weight: 500;
+}
+
+.c-1-bold {
+    font-weight: 700;
+}
+
+.c-2-regular,
+.c-2-medium,
+.c-2-upper {
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    line-height: 12px;
+}
+
+.c-2-regular {
+    font-weight: 400;
+}
+
+.c-2-medium,
+.c-2-upper {
+    font-weight: 500;
+}
+
+.c-2-upper {
+    text-transform: uppercase;
+    line-height: 16px;
+}
+
+.button-1 {
+    letter-spacing: 0.06em;
+    font-weight: 800;
+    line-height: 16px;
+    text-transform: uppercase;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.button-2 {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+    text-align: center;
+}

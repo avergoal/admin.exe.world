@@ -1,0 +1,52 @@
+:root {
+    /*Colors*/
+
+    /*Violet*/
+    --violet-primary: #755ec6;
+    --violet-20: #755ec633;
+    --violet-15: #755ec626;
+    --violet-dark: #523f94;
+    --violet-hover: #9983e7;
+
+    /*Emerald*/
+    --emerald-primary: #21b1ac;
+    --emerald-20: #21b1ac33;
+    --emerald-15: #21b1ac26;
+
+    /*White*/
+    --white-primary: #ffffff;
+
+    /*Green*/
+    --green-primary: #27ae60;
+    --green-primary-15: rgba(39, 174, 96, 0.15);
+
+    /*Orange*/
+    --orange-primary: #e74c3c;
+    --orange-20: #e74c3c33;
+    --orange-15: #e74c3c26;
+
+    /*Black*/
+    --black-primary: #27262d;
+    --black-90: #27262de5;
+    --black-72: #27262db8;
+    --black-48: #27262d7a;
+    --black-32: #27262d52;
+
+    /*Grey*/
+    --grey-primary: #556980;
+    --grey-medium: #9eafc3;
+    --grey-light: #e6eff9;
+
+    /*Social*/
+    --social-vk: #4a76a9;
+    --social-fb: #4368b1;
+    --social-ok: #ed8323;
+    --social-mail: #2265ab;
+    --social-twit: #4ca0eb;
+
+    /*Gradient*/
+    --north-wind: linear-gradient(180deg, #21b1ac 0%, #8d75df 100%);
+
+    /*Fonts*/
+    --font-raleway: Raleway, sans-serif;
+}

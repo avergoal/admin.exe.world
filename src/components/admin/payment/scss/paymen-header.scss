@@ -1,0 +1,26 @@
+.payment-header {
+    .header-content {
+        display: grid;
+        grid-template-columns: auto 438px;
+    }
+
+    .filter {
+        margin-top: 32px;
+        padding-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        border-top: 1px solid var(--grey-light);
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 438px 438px;
+            gap: 25px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 48px;
+        }
+    }
+}

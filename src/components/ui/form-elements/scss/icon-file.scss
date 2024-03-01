@@ -1,0 +1,26 @@
+.upload-icon {
+    display: flex;
+    gap: 12px;
+    input {
+        display: none;
+    }
+
+    .img {
+        width: 40px;
+        height: 40px;
+
+        img {
+            width: inherit;
+            height: inherit;
+        }
+    }
+
+    .button-1 {
+        padding: 11px;
+        border: 1px solid var(--grey-light);
+        background: none;
+        color: var(--grey-primary);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}

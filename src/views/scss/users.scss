@@ -1,0 +1,20 @@
+.users-content {
+    display: flex;
+
+    .users {
+        padding: 40px 48px 40px 24px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            h1 {
+                color: var(--black-primary);
+            }
+        }
+    }
+}
