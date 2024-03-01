@@ -1,0 +1,108 @@
+header {
+    width: 100%;
+    padding: 12px 25px 11px 25px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--grey-medium);
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .logo {
+            font-size: 0;
+        }
+
+        nav {
+            gap: 16px;
+            display: flex;
+
+            a {
+                padding: 8px 16px;
+                border-radius: 24px;
+                color: var(--violet-primary);
+                text-transform: uppercase;
+
+                &:hover {
+                    color: var(--violet-hover);
+                }
+
+                &:active {
+                    color: var(--violet-dark);
+                }
+
+                &.router-link-active {
+                    background: var(--violet-15);
+                }
+            }
+        }
+
+        .account-section {
+            position: relative;
+            display: contents;
+            user-select: none;
+
+            .account {
+                padding: 8px;
+                background: var(--grey-light);
+                border-radius: 12px;
+                min-width: 172px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                cursor: pointer;
+                gap: 8px;
+
+                &:hover {
+                    background: var(--violet-15);
+                }
+
+                .image {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+
+                    //&.background {
+                    //    background: var(--violet-primary);
+                    //}
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                        fill: white;
+                    }
+
+                    img {
+                        width: inherit;
+                        height: inherit;
+                        object-position: center;
+                        object-fit: cover;
+                    }
+                }
+
+                .name {
+                    color: var(--grey-primary);
+                }
+
+                .drop-icon {
+                    transform: rotateX(0deg);
+                    font-size: 0;
+                    transition: 0.5s;
+                }
+
+                &.open {
+                    background: var(--violet-20);
+
+                    .drop-icon {
+                        transform: rotateX(180deg);
+                    }
+                }
+            }
+        }
+    }
+}

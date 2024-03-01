@@ -1,0 +1,304 @@
+fieldset {
+    background: var(--grey-light);
+    color: var(--grey-primary);
+    padding: 12px 56px 12px 16px;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    cursor: text;
+
+    &.error {
+        border: 1px solid red;
+    }
+
+    .error-text {
+        color: red;
+    }
+
+    &.search {
+        padding-left: 56px;
+        border-radius: 28px;
+    }
+
+    legend {
+        position: absolute;
+        top: 20px;
+        left: 16px;
+        transition: 0.3s ease;
+    }
+
+    input {
+        width: 100%;
+        background: none;
+        border: none;
+        color: var(--black-primary);
+        line-height: 24px;
+        font-family: var(--font-raleway);
+
+        &::-webkit-datetime-edit-year-field,
+        &::-webkit-datetime-edit-month-field,
+        &::-webkit-datetime-edit-day-field {
+        }
+
+        &::-webkit-calendar-picker-indicator {
+            background: transparent;
+            bottom: 0;
+            color: transparent;
+            cursor: pointer;
+            height: auto;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: auto;
+        }
+
+        &.date {
+            text-transform: lowercase;
+        }
+
+        //&::-webkit-datetime-edit-text{
+        //    color: transparent;
+        //}
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &:focus ~ legend,
+        &:not(:placeholder-shown) ~ legend {
+            top: 10px;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+        }
+    }
+
+    textarea {
+        height: 86px;
+        width: 100%;
+        background: none;
+        border: none;
+        resize: none;
+        font-family: var(--font-raleway);
+
+        &:focus ~ legend,
+        &:not(:placeholder-shown) ~ legend {
+            top: 10px;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+        }
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    .counter {
+        position: absolute;
+        bottom: -18px;
+        left: 16px;
+    }
+
+    .input-absolute {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: none;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+
+        .drop-icon {
+            font-size: 0;
+            transition: 0.5s;
+            position: absolute;
+            top: 12px;
+            transform: rotateX(0deg);
+            right: 12px;
+
+            &.open {
+                transform: rotateX(180deg);
+            }
+        }
+    }
+
+    .select-overflow {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 8px);
+        max-height: 184px;
+        width: 100%;
+        box-shadow: 0 40px 67px rgba(0, 0, 0, 0.17), 0 6.3px 14.9653px rgba(0, 0, 0, 0.0949616),
+            0 1px 4.45557px rgba(0, 0, 0, 0.0648379);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--white-primary);
+        z-index: 1;
+
+        .select-items {
+            padding: 8px 0;
+            width: 100%;
+            overflow: auto;
+            max-height: 184px;
+
+            .item {
+                cursor: pointer;
+                padding: 12px 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 4px;
+                    height: 100%;
+                    background: var(--violet-primary);
+                    display: none;
+                    border-radius: 0 56px 56px 0;
+                }
+
+                &:hover {
+                    color: var(--black-primary);
+
+                    &:after {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .eye-icons,
+    .date-icon {
+        position: absolute;
+        top: 12px;
+        font-size: 0;
+        right: 12px;
+        cursor: pointer;
+    }
+
+    .search-icon {
+        position: absolute;
+        top: 12px;
+        font-size: 0;
+        left: 16px;
+        cursor: pointer;
+    }
+}
+
+.b-1-compact {
+    color: var(--grey-primary);
+    margin-bottom: 4px;
+}
+
+.toggle {
+    position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    top: 16px;
+    right: 16px;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked ~ .slider {
+            background: var(--violet-primary);
+
+            &:before {
+                transform: translateX(16px);
+            }
+        }
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 55px;
+        background: var(--grey-medium);
+
+        &:before {
+            position: absolute;
+            content: '';
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+    }
+}
+
+.checkbox {
+    cursor: pointer;
+    color: var(--black-primary);
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    .violet {
+        color: var(--violet-primary);
+        margin-left: -6px;
+
+        a {
+            height: max-content;
+            display: block;
+        }
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 0;
+
+        &:checked ~ .checkmark {
+            background-color: var(--violet-primary);
+            border: none;
+
+            &:after {
+                display: block;
+            }
+        }
+    }
+
+    .checkmark {
+        height: 18px;
+        width: 18px;
+        position: relative;
+        background: none;
+        cursor: pointer;
+        border: 2px solid var(--grey-primary);
+        border-radius: 4px;
+
+        &:after {
+            content: '';
+            background-image: url('@/assets/images/icons/done.svg');
+            background-size: contain;
+            position: absolute;
+            display: none;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-width: 0 3px 3px 0;
+        }
+    }
+}

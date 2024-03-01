@@ -1,0 +1,95 @@
+.application-content {
+    display: flex;
+    justify-content: space-between;
+
+    .application {
+        padding-top: 44px;
+        padding-left: 20px;
+        width: calc(100% - 550px);
+
+        .header {
+            margin-bottom: 32px;
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: var(--violet-primary);
+                padding: 8px;
+                margin-bottom: 24px;
+            }
+
+            .header-block {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                h2 {
+                    color: var(--black-primary);
+                }
+
+                .action-block {
+                    display: flex;
+                    gap: 8px;
+
+                    .dropdown-button {
+                        background: var(--violet-15);
+                        border-radius: 12px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 12px;
+                    }
+                }
+            }
+        }
+
+        .application-info {
+            .info-item {
+                display: flex;
+                gap: 24px;
+                padding: 32px 0;
+                border-top: 1px solid var(--grey-light);
+
+                .title {
+                    width: 400px;
+
+                    h4 {
+                        color: var(--black-primary);
+                    }
+
+                    .b-1-medium {
+                        color: var(--grey-primary);
+                    }
+                }
+
+                .content-block {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 40px;
+                    width: calc(100% - 400px);
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 32px;
+
+                    .sub-1 {
+                        color: var(--black-primary);
+                        margin-bottom: -16px;
+                    }
+
+                    .row {
+                        display: flex;
+                        gap: 24px;
+
+                        .row-item {
+                            flex-grow: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

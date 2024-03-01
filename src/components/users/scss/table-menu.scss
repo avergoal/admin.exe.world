@@ -1,0 +1,19 @@
+.table-menu {
+    background: white;
+    width: 271px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 6.300000190734863px 14.965327262878418px 0 #13216c18;
+    z-index: 1;
+    .menu-item {
+        padding: 8px 12px 8px;
+        color: var(--black-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+}

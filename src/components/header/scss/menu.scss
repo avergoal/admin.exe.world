@@ -1,0 +1,39 @@
+.menu {
+    position: absolute;
+    box-shadow: 0 40px 67px rgba(0, 0, 0, 0.17), 0 6.3px 14.9653px rgba(0, 0, 0, 0.0949616),
+        0 1px 4.45557px rgba(0, 0, 0, 0.0648379);
+    border-radius: 12px;
+    padding: 16px;
+    background: var(--white-primary);
+    top: calc(100% - 4px);
+    right: -2px;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 10;
+    min-width: 183px;
+
+    .menu-item {
+        display: flex;
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 16px;
+        justify-content: start;
+        cursor: pointer;
+
+        .icon {
+            font-size: 0;
+            width: 24px;
+            height: 24px;
+
+            svg {
+                fill: var(--violet-primary);
+            }
+        }
+
+        .sub-2 {
+            color: var(--grey-primary);
+        }
+    }
+}

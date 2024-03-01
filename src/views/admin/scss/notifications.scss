@@ -1,0 +1,87 @@
+.notifications-content {
+    padding: 40px 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .form-data {
+        display: grid;
+        grid-template-columns: 746px 460px;
+        gap: 180px;
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            .date {
+                display: grid;
+                grid-template-columns: 438px 283px;
+                gap: 25px;
+            }
+        }
+    }
+
+    .preview {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        .notification-preview {
+            border-radius: 12px;
+            box-shadow: 0 1px 4.455568313598633px 0 #13216c11,
+                0 6.300000190734863px 14.965327262878418px 0 #13216c18;
+            display: flex;
+            flex-direction: column;
+
+            .preview-header {
+                display: flex;
+                justify-content: space-between;
+                padding: 16px;
+
+                h6 {
+                    font-family: Raleway, serif;
+                    font-size: 20px;
+                    font-weight: 700;
+                    line-height: 24px;
+                    letter-spacing: 0.0015em;
+                }
+            }
+
+            .notification-items {
+                display: flex;
+                flex-direction: column;
+
+                .notification-item {
+                    padding: 8px 16px;
+                    display: flex;
+                    gap: 16px;
+                    align-items: center;
+
+                    .icon {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 8px;
+                        background: var(--grey-light);
+                    }
+
+                    .info {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+
+                        .text {
+                            background: var(--grey-light);
+                            height: 12px;
+                            width: 139px;
+                            border-radius: 8px;
+
+                            &:first-of-type {
+                                width: 211px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

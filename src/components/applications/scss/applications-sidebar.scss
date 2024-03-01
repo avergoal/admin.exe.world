@@ -1,0 +1,14 @@
+.applications-sidebar {
+    max-width: 446px;
+    width: 100%;
+    padding: 40px 28px;
+    background: #f9fcff;
+    height: 100vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border-right: 1px solid var(--grey-light);
+    position: sticky;
+    top: 0;
+}

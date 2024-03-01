@@ -1,0 +1,46 @@
+.application-sidebar {
+    max-width: 510px;
+    width: 100%;
+    padding: 101px 48px 28px;
+    background: #f9fcff;
+    height: 100vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 65px;
+    border-left: 1px solid var(--grey-light);
+    position: sticky;
+    top: 0;
+
+    .settings {
+        display: flex;
+        flex-direction: column;
+        button {
+            margin-right: auto;
+        }
+
+        &.publish {
+            .content {
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+            }
+        }
+
+        &.show {
+            .content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                button {
+                    margin-top: 16px;
+                }
+            }
+        }
+
+        h4 {
+            color: var(--black-primary);
+            margin-bottom: 16px;
+        }
+    }
+}

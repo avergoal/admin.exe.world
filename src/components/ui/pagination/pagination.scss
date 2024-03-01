@@ -1,0 +1,30 @@
+.pagination {
+    margin-top: auto;
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+
+    button {
+        background: none;
+    }
+    .next {
+        transform: rotate(180deg);
+    }
+
+    .page {
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--grey-primary);
+        border-radius: 6px;
+        border: 1px solid var(--grey-light);
+        cursor: pointer;
+
+        &.active {
+            background: var(--violet-primary);
+            color: white;
+        }
+    }
+}

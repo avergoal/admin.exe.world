@@ -1,0 +1,93 @@
+.table {
+    margin-top: 32px;
+    thead {
+        tr {
+            td {
+                color: var(--grey-primary);
+                padding: 10px 0;
+
+                svg {
+                    vertical-align: middle;
+                    margin-left: 4px;
+                }
+
+                &.sort {
+                    svg {
+                        transform: rotate(-180deg);
+                    }
+                }
+                &:last-of-type {
+                    text-align: end;
+                }
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                color: var(--grey-primary);
+                padding: 14px 0;
+                border-top: 1px solid var(--grey-light);
+
+                &:last-of-type {
+                    text-align: end;
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    .img {
+                        font-size: 0;
+                        img {
+                            width: 44px;
+                            height: 44px;
+                            border-radius: 50%;
+                        }
+                    }
+                    .info {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2px;
+                    }
+                }
+
+                .status {
+                    padding: 5px 12px 5px 8px;
+                    border-radius: 38px;
+                    background: var(--orange-15);
+                    width: fit-content;
+                    svg {
+                        vertical-align: middle;
+                        margin-right: 4px;
+                    }
+                    &.approve {
+                        background: var(--green-primary-15);
+                    }
+                }
+                &.activity {
+                    span {
+                        color: var(--violet-primary);
+                    }
+                }
+                &.action {
+                    position: relative;
+                    button {
+                        width: 34px;
+                        height: 34px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        cursor: pointer;
+                        background: none;
+                        margin-left: auto;
+                        border-radius: 8px;
+                        &.active {
+                            background: var(--violet-15);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
