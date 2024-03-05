@@ -10,18 +10,43 @@ import VTable from '@/components/ui/table/VTable.vue'
 import ApplicationsSidebar from '@/components/applications/ApplicationsSidebar.vue'
 import MainButton from '@/components/ui/buttons/MainButton.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
+import {computed, onMounted, ref} from "vue";
+import {useGamesStore} from "@/stores/games";
+
+
+onMounted(() => {
+    games.actionGetGames()
+})
+
+
+const games = useGamesStore()
+const search = ref('')
+
+
+const getGames = computed(() => games.getGames)
+
+
+const searchGame = (e) => {
+    if(e.target.value.length>2){
+        games.actionGetGames({
+            search:e.target.value
+        })
+    }else {
+        games.actionGetGames()
+    }
+}
 </script>
 
 <template>
     <div class="applications-content">
-        <applications-sidebar />
+        <applications-sidebar/>
         <div class="users">
             <div class="header">
                 <h1>Пользователи</h1>
                 <div class="action-block">
-                    <v-input search="true" :placeholder="'Поиск приложений'" />
+                    <v-input search="true" @input="searchGame" :placeholder="'Поиск приложений'"/>
                     <main-button icon="true">
-                        <plus-icon />
+                        <plus-icon/>
                         Добавить приложение
                     </main-button>
                 </div>
@@ -32,52 +57,55 @@ import PlusIcon from '@/components/icons/PlusIcon.vue'
                         <td class="b-2-compact b-2-bold sort">ID</td>
                         <td class="b-2-compact b-2-bold sort">
                             Название
-                            <table-arrow-icon />
+                            <table-arrow-icon/>
                         </td>
                         <td class="b-2-compact b-2-bold sort">
                             Автор
-                            <table-arrow-icon />
+                            <table-arrow-icon/>
                         </td>
                         <td class="b-2-compact b-2-bold sort">Статус</td>
                         <td class="b-2-compact b-2-bold sort">
                             Подтверждение
-                            <table-arrow-icon />
+                            <table-arrow-icon/>
                         </td>
                         <td class="b-2-compact b-2-bold sort">Действия</td>
                     </tr>
                 </template>
                 <template v-slot:tbody>
-                    <tr>
-                        <td class="b-1-compact">382 912</td>
+                    <tr v-for="game in getGames" @click="$router.push({name:'Application',params:{id:game.game.gid}})">
+                        <td class="b-1-compact">{{ game.game?.gid }}</td>
                         <td>
                             <div class="user">
                                 <div class="img">
-                                    <img src="@/assets/images/game.png" alt="" />
+                                    <img :src="game.game?.icon?.default?game.game?.icon?.default:game.game?.icon?.hires"
+                                         alt="logo"/>
                                 </div>
                                 <div class="info">
-                                    <p class="b-1-compact b-1-bold">qwe</p>
-                                    <p class="b-2-compact b-1-regular">qwe</p>
+                                    <p class="b-1-compact b-1-bold">{{ game.game?.title }}</p>
+                                    <p class="b-2-compact b-1-regular">{{ game.game?.type?.title }}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="b-1-compact">Esprit Games</td>
+                        <td class="b-1-compact">{{ game?.user?.user_name }}</td>
                         <td class="b-1-compact b-1-medium">
-                            <p class="status approve">
-                                <table-done-icon />
-                                Подтверждено
+                            <p class="status" :class="{ approve: game?.game?.active !=0 }">
+                                <table-done-icon v-if="game?.game?.active !=0"/>
+                                <table-close-icon v-else/>
+                                {{ game?.game?.active != 0 ? 'Активен' : 'Забанен' }}
                             </p>
                         </td>
                         <td class="b-1-compact b-1-medium">
-                            <p class="status">
-                                <table-close-icon />
-                                Не одобрен
+                            <p class="status" :class="{ approve: game?.game?.approved !=1 }">
+                                <table-done-icon v-if="game?.game?.approved !=1"/>
+                                <table-close-icon v-else/>
+                                {{ game?.game?.approved != 1 ? 'Подтверждено' : 'Не подтверждено' }}
                             </p>
                         </td>
-                        <table-menu :type="'application'" />
+                        <table-menu :type="'application'" :game="game"/>
                     </tr>
                 </template>
             </VTable>
-            <Pagination :current-page="1" :total-pages="10" />
+            <!--            <Pagination :current-page="1" :total-pages="10" />-->
         </div>
     </div>
 </template>

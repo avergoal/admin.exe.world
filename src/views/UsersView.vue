@@ -30,7 +30,7 @@ const pageChange = (e) => {
         <div class="users">
             <div class="header">
                 <h1>Пользователи</h1>
-                <v-input search="true" :placeholder="'Поиск пользователей'" />
+<!--                <v-input search="true" :placeholder="'Поиск пользователей'" />-->
             </div>
             <VTable>
                 <template v-slot:thead>
@@ -56,7 +56,7 @@ const pageChange = (e) => {
                     </tr>
                 </template>
                 <template v-slot:tbody>
-                    <tr v-for="user in getUsers?.[getPagination.currentPage]?.activity">
+                    <tr v-for="user in getUsers?.[getPagination?.currentPage-1]?.activity">
                         <td>
                             <div class="user">
                                 <div class="img">
@@ -81,7 +81,7 @@ const pageChange = (e) => {
                             <p class="status" :class="{ approve: user?.user?.enabled }">
                                 <table-done-icon v-if="user?.user?.enabled" />
                                 <table-close-icon v-else />
-                                {{ user?.user?.enabled ? 'Одобрен' : 'Не одобрен' }}
+                                {{ user?.user?.enabled ? 'Активен' : 'Забанен' }}
                             </p>
                         </td>
                         <td class="b-1-compact activity">

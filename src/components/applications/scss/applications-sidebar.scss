@@ -11,4 +11,9 @@
     border-right: 1px solid var(--grey-light);
     position: sticky;
     top: 0;
+    .buttons{
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
 }
