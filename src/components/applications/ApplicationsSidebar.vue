@@ -9,7 +9,8 @@ import MainButton from "@/components/ui/buttons/MainButton.vue";
 const games = useGamesStore()
 const searchForm = ref({
     category:'',
-    status:''
+    status:'',
+    options:''
 })
 const status = ref([
     {
@@ -18,6 +19,18 @@ const status = ref([
     },{
         id:1,
         status:'актив'
+    }
+])
+const options = ref([
+    {
+        id:1,
+        option:'новинка'
+    },{
+        id:2,
+        option:'рекомендуемая'
+    },{
+        id:3,
+        option:'каруселе'
     }
 ])
 
@@ -36,7 +49,8 @@ const actionGetGames = () => {
 const resetFilter = () => {
     searchForm.value = {
         category:'',
-        status:''
+        status:'',
+        options:''
     }
     games.setQuery({})
     games.actionGetGames()
@@ -45,9 +59,9 @@ const resetFilter = () => {
 
 <template>
     <div class="applications-sidebar">
-        <VSelect :title="'Категории'" v-model="searchForm.category" :data="getCategories" :show-select="'title'" :idType="'cid'" :findValue="searchForm.category"/>
-        <VSelect :title="'Статус приложения'" v-model="searchForm.status" :data="status" :show-select="'status'" :id-type="'id'" :findValue="searchForm.status"/>
-        <VSelect :title="'Промо опции'" :show-select="'status'"/>
+        <VSelect :title="'Категории'" v-model="searchForm.category" :data="getCategories" :show-select="'title'" :idType="'cid'"/>
+        <VSelect :title="'Статус приложения'" v-model="searchForm.status" :data="status" :show-select="'status'" :id-type="'id'"/>
+        <VSelect :title="'Промо опции'" v-model="searchForm.options" :data="options" :show-select="'option'" :id-type="'id'"/>
         <VCheckbox v-model="searchForm.approved">Только подтвержденные приложения</VCheckbox>
         <div class="buttons">
             <MainButton :secondary="true" @click="resetFilter">

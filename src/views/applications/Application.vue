@@ -7,13 +7,30 @@ import VSelect from '@/components/ui/form-elements/VSelect.vue'
 import VInput from '@/components/ui/form-elements/VInput.vue'
 import VTextArea from '@/components/ui/form-elements/VTextArea.vue'
 import VCoverInput from '@/components/ui/form-elements/VCoverInput.vue'
+import {computed, onMounted} from "vue";
+import {useGamesStore} from "@/stores/games";
+import {useRoute} from "vue-router";
 
+
+onMounted(()=>{
+    games.actionGetGame(route.params.id)
+})
+
+
+const games = useGamesStore()
+const route = useRoute()
+
+
+const getGame = computed(()=>games.getGame)
 const data = [
     { id: 0, status: 'Not published' },
     { id: 1, status: 'Published' },
     { id: 2, status: 'Technical works' }
 ]
 const coverTypes = ['icon', 'cover', 'carousel']
+
+
+
 </script>
 
 <template>

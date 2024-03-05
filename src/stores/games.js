@@ -5,16 +5,22 @@ export const useGamesStore = defineStore('games', {
         games: [],
         approveStatuses: [],
         categories: [],
-        gamesQuery:{}
+        gamesQuery:{},
+        game: {}
     }),
     getters: {
         getGames: (state) => state?.games,
+        getGame: (state) => state?.game,
         getCategories: (state) => state?.categories
     },
     actions: {
         async actionGetGames(params={}) {
             const {data} = await this.$axios.post('/admin.games', {...this.gamesQuery,...params})
             this.games = data.response.games
+        },
+        async actionGetGame(gid) {
+            const {data} = await this.$axios.post('/admin.games.details', {gid})
+            this.game = data.response.game
         },
         async changeGameStatus(params){
             await this.$axios.post('/admin.games.status',params)
