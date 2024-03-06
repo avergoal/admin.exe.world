@@ -11,7 +11,8 @@ export const useGamesStore = defineStore('games', {
     getters: {
         getGames: (state) => state?.games,
         getGame: (state) => state?.game,
-        getCategories: (state) => state?.categories
+        getCategories: (state) => state?.categories,
+        getApproveStatuses: (state) => state?.approveStatuses
     },
     actions: {
         async actionGetGames(params={}) {
@@ -28,6 +29,14 @@ export const useGamesStore = defineStore('games', {
         },
         async changeGameApprove(params){
             await this.$axios.post('/admin.games.approve',params)
+            await this.actionGetGames()
+        },
+        async submitOptions(params){
+            await this.$axios.post('/admin.games.options',params)
+            await this.actionGetGames()
+        },
+        async submitInfo(params){
+            await this.$axios.post('/admin.games.save',params)
             await this.actionGetGames()
         },
         async deleteGame(params){

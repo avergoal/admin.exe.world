@@ -4,6 +4,7 @@ import {useUserStore} from '@/stores/user'
 import {useMediaStore} from '@/stores/media'
 import {useUsersStore} from "@/stores/users";
 import {useGamesStore} from "@/stores/games";
+import {usePaymentsStore} from "@/stores/payments";
 
 export const useAppStore = defineStore('app', {
     actions: {
@@ -11,6 +12,7 @@ export const useAppStore = defineStore('app', {
             if (localStorage.token) {
                 const user = useUserStore()
                 const users = useUsersStore()
+                const payments = usePaymentsStore()
                 // const game = useGameStore()
                 const media = useMediaStore()
                 const games = useGamesStore()
@@ -20,6 +22,7 @@ export const useAppStore = defineStore('app', {
                 users.setActivityTypes(data.response.activity_types)
                 games.setApproveStatuses(data.response.approve_statuses)
                 games.setCategories(data.response.categories)
+                payments.setPayments(data.response.payment_methods)
                 // game.setState('genre', data.response.categories)
                 media.setState('mediaTypes', data.response.media_types)
             }

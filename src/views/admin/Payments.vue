@@ -1,12 +1,36 @@
 <script setup>
 import PaymentHeader from '@/components/admin/payment/PaymentHeader.vue'
-import TableCloseIcon from '@/components/icons/table/TableCloseIcon.vue'
-import MoreIcon from '@/components/icons/MoreIcon.vue'
 import TableArrowIcon from '@/components/icons/table/TableArrowIcon.vue'
-import TableDoneIcon from '@/components/icons/table/TableDoneIcon.vue'
-import TableMenu from '@/components/users/TableMenu.vue'
 import VTable from '@/components/ui/table/VTable.vue'
 import Pagination from '@/components/ui/pagination/Pagination.vue'
+import {usePaymentsStore} from "@/stores/payments";
+import {computed, onMounted, ref} from "vue";
+
+
+onMounted(()=>{
+    payments.actionGetPayments()
+})
+
+
+const payments = usePaymentsStore()
+
+
+const getPayments =computed(()=>payments.getPayments)
+const getPagination = computed(() => payments.getPagination)
+
+
+const pageChange = (e) => {
+    payments.setPage(e)
+}
+
+const formatDate = (timeS)=>{
+    const timestamp = timeS * 1000;
+    const date = new Date(timestamp);
+
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
+    const formattedDate = new Intl.DateTimeFormat('ru-RU', options).format(date);
+    return formattedDate.replace(',',' в');
+}
 </script>
 
 <template>
@@ -15,55 +39,59 @@ import Pagination from '@/components/ui/pagination/Pagination.vue'
         <VTable>
             <template v-slot:thead>
                 <tr>
-                    <td class="b-2-compact b-2-bold sort">ID</td>
+                    <td class="b-2-compact b-2-bold sort">Пользователь</td>
                     <td class="b-2-compact b-2-bold sort">
-                        Название
+                        Номер
                         <table-arrow-icon />
                     </td>
                     <td class="b-2-compact b-2-bold sort">
-                        Автор
+                        Дата и время
                         <table-arrow-icon />
                     </td>
                     <td class="b-2-compact b-2-bold sort">Статус</td>
                     <td class="b-2-compact b-2-bold sort">
-                        Подтверждение
+                        Сумма фактическая
                         <table-arrow-icon />
                     </td>
-                    <td class="b-2-compact b-2-bold sort">Действия</td>
+                    <td class="b-2-compact b-2-bold sort">Статус</td>
                 </tr>
             </template>
             <template v-slot:tbody>
-                <tr>
-                    <td class="b-1-compact">382 912</td>
+                <tr v-for="payment in getPayments?.[getPagination?.currentPage-1]?.payments">
                     <td>
                         <div class="user">
                             <div class="img">
-                                <img src="@/assets/images/game.png" alt="" />
+                                <img :src="payment?.user?.avatar_urls?.x100" alt="x100" />
                             </div>
                             <div class="info">
-                                <p class="b-1-compact b-1-bold">qwe</p>
-                                <p class="b-2-compact b-1-regular">qwe</p>
+                                <p class="b-1-compact b-1-bold">
+                                    {{ payment?.user?.first_name }} {{ payment?.user?.last_name }}
+                                </p>
+                                <p class="b-2-compact b-1-regular"></p>
                             </div>
                         </div>
                     </td>
-                    <td class="b-1-compact">Esprit Games</td>
+                    <td class="b-1-compact">{{ payment.pid }}</td>
                     <td class="b-1-compact b-1-medium">
-                        <p class="status approve">
-                            <table-done-icon />
-                            Подтверждено
-                        </p>
+                        {{ formatDate(payment.time) }}
                     </td>
                     <td class="b-1-compact b-1-medium">
-                        <p class="status">
-                            <table-close-icon />
-                            Не одобрен
-                        </p>
+                        {{payment.value}}
                     </td>
-                    <table-menu :type="'application'" />
+                    <td class="b-1-compact b-1-medium">
+                        {{payment.value}}
+                    </td>
+                    <td class="b-1-compact b-1-medium">
+                        {{payment.status}}
+                    </td>
                 </tr>
             </template>
         </VTable>
-        <Pagination :current-page="1" :total-pages="10" />
+        <Pagination
+            :current-page="getPagination?.currentPage"
+            :total-pages="getPagination?.pageTotal"
+            @page-change="pageChange"
+        />
     </div>
 </template>
 

@@ -90,6 +90,8 @@
         .upload-button {
             padding: 11px 8px;
             border-radius: 10px;
+            background: none;
+            cursor: pointer;
             color: var(--grey-primary);
             border: 1px solid var(--grey-light);
         }

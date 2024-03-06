@@ -62,6 +62,10 @@
                         height: 40px;
                         border-radius: 8px;
                         background: var(--grey-light);
+                        img {
+                            width: inherit;
+                            height: inherit;
+                        }
                     }
 
                     .info {
@@ -78,6 +82,10 @@
                             &:first-of-type {
                                 width: 211px;
                             }
+                        }
+                        .b-2-regular{
+                            color: var(--black-90);
+                            line-break: anywhere;
                         }
                     }
                 }

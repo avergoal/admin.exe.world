@@ -32,7 +32,7 @@ onMounted(() => {
     const params = {
         enableTime: false,
         time_24hr: false,
-        dateFormat: 'd.m.y',
+        dateFormat: 'd-m-y',
         closeOnSelect: true,
         onChange: function (selectedDates, dateStr, instance) {
             // Update flatpickrRef.value with the selected date or time
@@ -44,10 +44,10 @@ onMounted(() => {
     }
     if (props.dateType !== 'date') {
         params.noCalendar = true
-        params.time_24hr = false
+        params.time_24hr = true
         params.enableTime = true
         params.closeOnSelect = false
-        params.dateFormat = 'h:i K'
+        params.dateFormat = 'H:i'
     }
 
     flatpickr(flatpickrRef.value, params)
@@ -66,8 +66,11 @@ const convertDateFormat = (inputDate) => {
 }
 
 const updateDate = (e) => {
-    if (e.target.value.includes('to')) {
+    if (e.target.value.includes('to') ) {
         emit('update:modelValue', convertDateRange(e.target.value))
+    }
+    if(props.mode !== 'range'){
+        emit('update:modelValue',e.target.value)
     }
 }
 </script>

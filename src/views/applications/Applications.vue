@@ -42,10 +42,10 @@ const searchGame = (e) => {
         <applications-sidebar/>
         <div class="users">
             <div class="header">
-                <h1>Пользователи</h1>
+                <h1>Приложения</h1>
                 <div class="action-block">
                     <v-input search="true" @input="searchGame" :placeholder="'Поиск приложений'"/>
-                    <main-button icon="true">
+                    <main-button icon="true" @click="$router.push({name:'Application'})">
                         <plus-icon/>
                         Добавить приложение
                     </main-button>
@@ -72,7 +72,7 @@ const searchGame = (e) => {
                     </tr>
                 </template>
                 <template v-slot:tbody>
-                    <tr v-for="game in getGames" @click="$router.push({name:'Application',params:{id:game.game.gid}})">
+                    <tr class="cursor" v-for="game in getGames" @click="$router.push({name:'Application',params:{id:game.game.gid}})">
                         <td class="b-1-compact">{{ game.game?.gid }}</td>
                         <td>
                             <div class="user">

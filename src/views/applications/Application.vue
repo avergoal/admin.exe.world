@@ -7,30 +7,46 @@ import VSelect from '@/components/ui/form-elements/VSelect.vue'
 import VInput from '@/components/ui/form-elements/VInput.vue'
 import VTextArea from '@/components/ui/form-elements/VTextArea.vue'
 import VCoverInput from '@/components/ui/form-elements/VCoverInput.vue'
-import {computed, onMounted} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useGamesStore} from "@/stores/games";
 import {useRoute} from "vue-router";
 
 
-onMounted(()=>{
-    games.actionGetGame(route.params.id)
+onMounted(async () => {
+    if (route.params.id) {
+        await games.actionGetGame(route.params.id)
+        formInfo.value = {
+            gid: getGame.value?.info?.gid,
+            type: getGame.value?.info?.type,
+            title: getGame.value?.info?.title,
+            main_url: getGame.value?.info?.main_url,
+            payment_url: getGame.value?.info?.payment_url,
+            locales: getGame.value?.locales,
+            session: getGame.value?.session,
+        }
+
+    }
 })
 
 
 const games = useGamesStore()
 const route = useRoute()
+const formInfo = ref({})
 
 
-const getGame = computed(()=>games.getGame)
+const getGame = computed(() => games.getGame)
+const getCategories = computed(() => games.getCategories)
 const data = [
-    { id: 0, status: 'Not published' },
-    { id: 1, status: 'Published' },
-    { id: 2, status: 'Technical works' }
+    {id: 0, status: 'Not published'},
+    {id: 1, status: 'Published'},
+    {id: 2, status: 'Technical works'}
 ]
 const coverTypes = ['icon', 'cover', 'carousel']
 
 
-
+const submitInfo = () => {
+    games.submitInfo(formInfo.value)
+}
 </script>
 
 <template>
@@ -38,15 +54,15 @@ const coverTypes = ['icon', 'cover', 'carousel']
         <div class="application">
             <div class="header">
                 <router-link class="button-2" :to="{ name: 'Applications' }">
-                    <BackPageIcon />
+                    <BackPageIcon/>
                     к приложениям
                 </router-link>
                 <div class="header-block">
                     <h1>Dragon Knight 2</h1>
                     <div class="action-block">
-                        <main-button icon="true"> Сохранить изменения </main-button>
+                        <main-button icon="true" @click="submitInfo"> Сохранить изменения</main-button>
                         <button class="dropdown-button">
-                            <MoreVioletIcon />
+                            <MoreVioletIcon/>
                         </button>
                     </div>
                 </div>
@@ -64,21 +80,26 @@ const coverTypes = ['icon', 'cover', 'carousel']
                                     class="row-item"
                                     :placeholder="'Dragon Knight 2'"
                                     :title="'Название'"
+                                    v-model="formInfo.title"
                                 />
                                 <VSelect
                                     class="row-item"
                                     :title="'Жанр'"
-                                    :data="data"
-                                    :show-select="'status'"
+                                    :data="getCategories"
+                                    v-model="formInfo.type"
+                                    id-type="cid"
+                                    show-select="title"
                                 />
                             </div>
                             <vInput
                                 :placeholder="'https://html5.inlogic.sk/dragonknight/?partner_id=dragonknight2'"
                                 :title="'Ссылка'"
+                                v-model="formInfo.main_url"
                             />
                             <vInput
                                 :placeholder="'https://html5.inlogic.sk/dragonknight/?partner_id=dragonknight2'"
                                 :title="'Платёжная ссылка'"
+                                v-model="formInfo.payment_url"
                             />
                         </div>
                     </div>
@@ -89,27 +110,19 @@ const coverTypes = ['icon', 'cover', 'carousel']
                         <p class="b-1-medium">Название и описание на разных языках</p>
                     </div>
                     <div class="content-block">
-                        <div class="content">
-                            <p class="sub-1">English</p>
+                        <div class="content" v-for="item in formInfo.locales">
+                            <p class="sub-1">{{ item.locale === 'en' ? 'English' : 'Русский' }}</p>
                             <vInput
                                 class="row-item"
                                 :placeholder="'Dragon Knight 2'"
                                 :title="'Название'"
+                                v-model="item.content.title"
                             />
-                            <v-text-area :title="'Описание'" />
-                        </div>
-                        <div class="content">
-                            <p class="sub-1">Русский</p>
-                            <vInput
-                                class="row-item"
-                                :placeholder="'Dragon Knight 2'"
-                                :title="'Название'"
-                            />
-                            <v-text-area :title="'Описание'" />
+                            <v-text-area :title="'Описание'" v-model="item.content.description"/>
                         </div>
                     </div>
                 </div>
-                <div class="info-item images">
+                <div class="info-item images" v-if="route.params.id">
                     <div class="title">
                         <h4>Изображения</h4>
                         <p class="b-1-medium">Обложка и аватары игры</p>
@@ -129,7 +142,7 @@ const coverTypes = ['icon', 'cover', 'carousel']
                 </div>
             </div>
         </div>
-        <application-sidebar />
+        <application-sidebar/>
     </div>
 </template>
 

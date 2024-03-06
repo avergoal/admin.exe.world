@@ -46,7 +46,8 @@ export const useUsersStore = defineStore('users', {
             this.usersQuery = query
             this.pagination = {
                 pageTotal: 1,
-                currentPage: 1
+                currentPage: 1,
+                offset:[]
             }
         },
         async updatePage(){

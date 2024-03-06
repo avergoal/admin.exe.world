@@ -2,6 +2,10 @@
 import IconFileIcon from '@/components/icons/IconFileIcon.vue'
 import { ref } from 'vue'
 
+
+const emit = defineEmits(['imageChange'])
+
+
 const preview = ref('')
 const file = ref()
 
@@ -9,8 +13,9 @@ const uploadImage = (e) => {
     const image = e.target.files[0]
     if (image) {
         const reader = new FileReader()
-        reader.onload = () => {
-            preview.value = reader.result
+        reader.onload = async () => {
+            preview.value = await reader.result
+            emit('imageChange', {preview:preview.value,file:image})
         }
         reader.readAsDataURL(image)
     }

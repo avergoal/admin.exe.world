@@ -18,14 +18,14 @@ const router = createRouter({
             meta: { requiresAuth: true },
             children: [
                 {
+                    path: '/application/:id?',
+                    name: 'Application',
+                    component: () => import('@/views/applications/Application.vue')
+                },
+                {
                     path: '',
                     name: 'Applications',
                     component: () => import('@/views/applications/Applications.vue')
-                },
-                {
-                    path: ':id',
-                    name: 'Application',
-                    component: () => import('@/views/applications/Application.vue')
                 }
             ]
         },
