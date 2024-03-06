@@ -20,7 +20,7 @@ export const useUsersStore = defineStore('users', {
     actions: {
         async actionGetUsers() {
             this.users = []
-            const { data } = await this.$axios.post('admin.users', this.usersQuery)
+            const { data } = await this.$axios.post('/admin.users', this.usersQuery)
             this.users.push(data.response)
             this.pagination.offset.push(data.response.offset)
             this.usersQuery.offset = data.response.offset
@@ -28,7 +28,7 @@ export const useUsersStore = defineStore('users', {
         },
         async actionPaginate(pageTotal = 7) {
             if (this.usersQuery?.offset && this.pagination.pageTotal < pageTotal) {
-                const { data } = await this.$axios.post('admin.users', this.usersQuery)
+                const { data } = await this.$axios.post('/admin.users', this.usersQuery)
                 this.users.push(data.response)
                 this.usersQuery.offset = data.response.offset
                 this.pagination.offset.push(data.response.offset)

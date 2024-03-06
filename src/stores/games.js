@@ -6,18 +6,44 @@ export const useGamesStore = defineStore('games', {
         approveStatuses: [],
         categories: [],
         gamesQuery:{},
+        pagination: {
+            pageTotal: 1,
+            currentPage: 1,
+            offset:[]
+        },
         game: {}
     }),
     getters: {
         getGames: (state) => state?.games,
         getGame: (state) => state?.game,
         getCategories: (state) => state?.categories,
+        getPagination: (state) => state?.pagination,
         getApproveStatuses: (state) => state?.approveStatuses
     },
     actions: {
-        async actionGetGames(params={}) {
-            const {data} = await this.$axios.post('/admin.games', {...this.gamesQuery,...params})
-            this.games = data.response.games
+        async actionGetGames() {
+            const {data} = await this.$axios.post('/admin.games', this.usersQuery)
+            this.games.push(data.response)
+            this.pagination.offset.push(data.response.offset)
+            this.gamesQuery.offset = data.response.offset
+            await this.actionPaginate()
+        },
+        async actionPaginate(pageTotal = 7) {
+            if (this.gamesQuery?.offset && this.pagination.pageTotal < pageTotal) {
+                const { data } = await this.$axios.post('/admin.games', this.gamesQuery)
+                this.games.push(data.response)
+                this.gamesQuery.offset = data.response.offset
+                this.pagination.offset.push(data.response.offset)
+                this.pagination.pageTotal++
+                await this.actionPaginate(pageTotal)
+            }
+        },
+
+        setPage(page) {
+            this.pagination.currentPage = page
+            if (this.pagination.currentPage + 5 > this.pagination.pageTotal) {
+                this.actionPaginate(this.pagination.currentPage + 6)
+            }
         },
         async actionGetGame(gid) {
             const {data} = await this.$axios.post('/admin.games.details', {gid})
@@ -45,6 +71,11 @@ export const useGamesStore = defineStore('games', {
         },
         setQuery(query) {
             this.gamesQuery = query
+            this.pagination = {
+                pageTotal: 1,
+                currentPage: 1,
+                offset:[]
+            }
         },
         setApproveStatuses(approveStatuses){
             this.approveStatuses = approveStatuses

@@ -24,6 +24,7 @@ const search = ref('')
 
 
 const getGames = computed(() => games.getGames)
+const getPagination = computed(() => games.getPagination)
 
 
 const searchGame = (e) => {
@@ -34,6 +35,10 @@ const searchGame = (e) => {
     }else {
         games.actionGetGames()
     }
+}
+
+const pageChange = (e) => {
+    games.setPage(e)
 }
 </script>
 
@@ -72,7 +77,7 @@ const searchGame = (e) => {
                     </tr>
                 </template>
                 <template v-slot:tbody>
-                    <tr class="cursor" v-for="game in getGames" @click="$router.push({name:'Application',params:{id:game.game.gid}})">
+                    <tr class="cursor" v-for="game in getGames?.[getPagination?.currentPage-1]?.games" @click="$router.push({name:'Application',params:{id:game.game.gid}})">
                         <td class="b-1-compact">{{ game.game?.gid }}</td>
                         <td>
                             <div class="user">
@@ -105,7 +110,11 @@ const searchGame = (e) => {
                     </tr>
                 </template>
             </VTable>
-            <!--            <Pagination :current-page="1" :total-pages="10" />-->
+            <Pagination
+                :current-page="getPagination?.currentPage"
+                :total-pages="getPagination?.pageTotal"
+                @page-change="pageChange"
+            />
         </div>
     </div>
 </template>
