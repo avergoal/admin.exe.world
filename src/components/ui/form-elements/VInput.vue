@@ -83,7 +83,7 @@ const onInput = (event) => {
                 :type="type"
                 :disabled="disabled"
                 :value="modelValue"
-                @change="onInput"
+                @input="onInput"
                 ref="vInput"
                 class="b-1-regular"
                 :placeholder="placeholder"

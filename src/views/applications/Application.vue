@@ -9,7 +9,9 @@ import VTextArea from '@/components/ui/form-elements/VTextArea.vue'
 import VCoverInput from '@/components/ui/form-elements/VCoverInput.vue'
 import {computed, onMounted, ref} from "vue";
 import {useGamesStore} from "@/stores/games";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {useMediaStore} from "@/stores/media";
+import TableDeleteIcon from "@/components/icons/table/TableDeleteIcon.vue";
 
 
 onMounted(async () => {
@@ -21,21 +23,39 @@ onMounted(async () => {
             title: getGame.value?.info?.title,
             main_url: getGame.value?.info?.main_url,
             payment_url: getGame.value?.info?.payment_url,
-            locales: getGame.value?.locales,
             session: getGame.value?.session,
+            locales: {}
         }
+        getLocales.value.forEach((item) => {
+            formInfo.value.locales[item.code] = {
+                locale: item.code,
+                description: getGame.value.locales?.find((loc) => loc.locale === item.code)?.content?.description ?? '',
+                title: getGame.value.locales?.find((loc) => loc.locale === item.code)?.content?.title ?? ''
 
+            }
+        })
+        getGame.value.files?.filter((file) => {
+            file.code = Object.values(mediaStore.getMediaTypes).find(
+                (item) => item.id === parseInt(file.type)
+            ).code
+        })
+        setImages()
     }
 })
 
-
+const mediaStore = useMediaStore()
 const games = useGamesStore()
 const route = useRoute()
 const formInfo = ref({})
+const files = ref({})
+const open = ref(false)
+const router = useRouter()
 
 
 const getGame = computed(() => games.getGame)
 const getCategories = computed(() => games.getCategories)
+const getLocales = computed(() => games.getLocales)
+const getMediaTypes = computed(() => mediaStore.getMediaTypes)
 const data = [
     {id: 0, status: 'Not published'},
     {id: 1, status: 'Published'},
@@ -46,6 +66,29 @@ const coverTypes = ['icon', 'cover', 'carousel']
 
 const submitInfo = () => {
     games.submitInfo(formInfo.value)
+}
+
+const deleteGame = ()=>{
+    games.deleteGame({
+        gid: getGame.value.info.gid,
+        session: getGame.value.session,
+    })
+    router.push({name:'Applications'})
+}
+
+const setImages = () => {
+    coverTypes.forEach((type) => {
+        let id = Object.values(getMediaTypes.value).find((item) => item.code === type)?.id
+        if (type === 'screenshot') {
+            files.value[type] = getGame.value.files?.filter(
+                (item) => parseInt(item.type) === id
+            )
+        } else {
+            files.value[type] = getGame.value.files?.filter(
+                (item) => parseInt(item.type) === id
+            )
+        }
+    })
 }
 </script>
 
@@ -58,12 +101,20 @@ const submitInfo = () => {
                     к приложениям
                 </router-link>
                 <div class="header-block">
-                    <h1>Dragon Knight 2</h1>
+                    <h1>{{ formInfo.title }}</h1>
                     <div class="action-block">
                         <main-button icon="true" @click="submitInfo"> Сохранить изменения</main-button>
-                        <button class="dropdown-button">
-                            <MoreVioletIcon/>
-                        </button>
+                        <div class="dropdown-block">
+                            <button class="dropdown-button" @click="open = !open">
+                                <MoreVioletIcon/>
+                            </button>
+                            <div class="dropdown-menu" v-if="open">
+                                <div class="dropdown-item" @click="deleteGame">
+                                    <table-delete-icon/>
+                                    Удалить
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,9 +167,9 @@ const submitInfo = () => {
                                 class="row-item"
                                 :placeholder="'Dragon Knight 2'"
                                 :title="'Название'"
-                                v-model="item.content.title"
+                                v-model="item.title"
                             />
-                            <v-text-area :title="'Описание'" v-model="item.content.description"/>
+                            <v-text-area :title="'Описание'" v-model="item.description"/>
                         </div>
                     </div>
                 </div>
@@ -134,7 +185,7 @@ const submitInfo = () => {
                                 :type="type"
                                 :key="type"
                                 :multiple="type === 'screenshot'"
-                                :src="[type]"
+                                :src="files[type]"
                                 v-for="type in coverTypes"
                             />
                         </div>

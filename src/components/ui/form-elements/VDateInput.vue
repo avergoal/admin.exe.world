@@ -23,6 +23,9 @@ const props = defineProps({
     },
     modelValue: {
         default: ''
+    },
+    dateFormat:{
+        default:''
     }
 })
 
@@ -32,7 +35,7 @@ onMounted(() => {
     const params = {
         enableTime: false,
         time_24hr: false,
-        dateFormat: 'd-m-y',
+        dateFormat: props.dateFormat.length?props.dateFormat:'d-m-y',
         closeOnSelect: true,
         onChange: function (selectedDates, dateStr, instance) {
             // Update flatpickrRef.value with the selected date or time
@@ -47,7 +50,7 @@ onMounted(() => {
         params.time_24hr = true
         params.enableTime = true
         params.closeOnSelect = false
-        params.dateFormat = 'H:i'
+        params.dateFormat = props.dateFormat.length?props.dateFormat:'H:i'
     }
 
     flatpickr(flatpickrRef.value, params)

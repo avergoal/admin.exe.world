@@ -4,7 +4,7 @@ import { computed, defineEmits, onMounted, ref, watch } from 'vue'
 const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
-    inputValue: {
+    modelValue: {
         default: '',
         type: String
     },
@@ -26,12 +26,12 @@ const props = defineProps({
     }
 })
 
-onMounted(() => {
-    if (props.inputValue) {
-        emit('update:modelValue', props.inputValue)
-        value.value = props.inputValue
-    }
-})
+// onMounted(() => {
+//     if (props.inputValue) {
+//         emit('update:modelValue', props.inputValue)
+//         value.value = props.inputValue
+//     }
+// })
 
 const vTextArea = ref(null)
 const value = ref('')
@@ -46,13 +46,13 @@ const onInput = (event) => {
     emit('update:modelValue', event.target.value)
 }
 
-watch(
-    () => props.inputValue,
-    (newValue) => {
-        emit('update:modelValue', newValue)
-        value.value = newValue
-    }
-)
+// watch(
+//     () => props.inputValue,
+//     (newValue) => {
+//         emit('update:modelValue', newValue)
+//         value.value = newValue
+//     }
+// )
 </script>
 
 <template>
@@ -61,7 +61,7 @@ watch(
         <fieldset class="textarea" @click="focus" :class="{ error }">
             <textarea
                 @input="onInput"
-                v-model="value"
+                :value="modelValue"
                 ref="vTextArea"
                 :placeholder="placeholder"
                 class="b-1-regular"

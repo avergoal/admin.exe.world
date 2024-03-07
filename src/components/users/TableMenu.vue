@@ -96,15 +96,15 @@ const deleteGame = () => {
         </button>
         <div class="table-menu" v-if="open">
             <template v-if="type === 'users'">
-                <div class="menu-item b-1-compact b-1-medium" @click="resendEmail">
+                <div class="menu-item b-1-compact b-1-medium" @click.stop="resendEmail">
                     <table-process-icon/>
                     Отправить email повторно
                 </div>
-                <div class="menu-item b-1-compact b-1-medium" @click="confirmEmail">
+                <div class="menu-item b-1-compact b-1-medium" @click.stop="confirmEmail">
                     <email-icon/>
                     Подтвердить email
                 </div>
-                <div class="menu-item b-1-compact b-1-medium" @click="blockUser">
+                <div class="menu-item b-1-compact b-1-medium" @click.stop="blockUser">
                     <stop-icon v-if="user.user.enabled"/>
                     <table-menu-done-icon v-else/>
                     {{ user.user.enabled ? 'Забанить' : 'Активировать' }}
@@ -112,17 +112,17 @@ const deleteGame = () => {
                 </div>
             </template>
             <template v-if="type === 'application'">
-                <div class="menu-item b-1-compact b-1-medium" @click="changeApprove ">
+                <div class="menu-item b-1-compact b-1-medium" @click.stop="changeApprove ">
                     <table-close-violet-icon v-if="game?.game?.approved!=1"/>
                     <table-menu-done-icon v-else/>
                     {{ game?.game?.approved !=1?'Отозвать подтверждение':'Подтверлить' }}
                 </div>
-                <div class="menu-item b-1-compact b-1-medium" @click="changeStatus">
+                <div class="menu-item b-1-compact b-1-medium" @click.stop="changeStatus">
                     <stop-icon v-if="game?.game?.active  !=0 "/>
                     <table-menu-done-icon v-else/>
                     {{ game?.game?.active != 0 ? 'Перевести в неактивные' : 'Перевести в активные' }}
                 </div>
-                <div class="menu-item b-1-compact b-1-medium" @click="deleteGame">
+                <div class="menu-item b-1-compact b-1-medium" @click.stop="deleteGame">
                     <table-delete-icon/>
                     Удалить
                 </div>

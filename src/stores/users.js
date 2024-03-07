@@ -9,8 +9,7 @@ export const useUsersStore = defineStore('users', {
             currentPage: 1,
             offset:[]
         },
-        activityTypes:[]
-
+        activityTypes:[],
     }),
     getters: {
         getUsers: (state) => state?.users,
@@ -20,6 +19,11 @@ export const useUsersStore = defineStore('users', {
     actions: {
         async actionGetUsers() {
             this.users = []
+            this.pagination = {
+                pageTotal: 1,
+                currentPage: 1,
+                offset: []
+            }
             const { data } = await this.$axios.post('/admin.users', this.usersQuery)
             this.users.push(data.response)
             this.pagination.offset.push(data.response.offset)

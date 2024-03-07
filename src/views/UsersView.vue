@@ -8,13 +8,16 @@ import TableMenu from '@/components/users/TableMenu.vue'
 import Pagination from '@/components/ui/pagination/Pagination.vue'
 import VTable from '@/components/ui/table/VTable.vue'
 import { useUsersStore } from '@/stores/users'
-import { computed, onMounted } from 'vue'
+import {computed, onMounted, ref} from 'vue'
+
 
 onMounted(async () => {
     await users.actionGetUsers()
 })
 
+
 const users = useUsersStore()
+const uid = ref('')
 
 const getUsers = computed(() => users.getUsers)
 const getPagination = computed(() => users.getPagination)
@@ -22,16 +25,25 @@ const getPagination = computed(() => users.getPagination)
 const pageChange = (e) => {
     users.setPage(e)
 }
+
+const setUid = (user)=>{
+    uid.value = user.uid
+}
 </script>
 
 <template>
     <div class="users-content">
-        <users-sidebar />
+        <users-sidebar :uid="uid"/>
         <div class="users">
             <div class="header">
                 <h1>Пользователи</h1>
 <!--                <v-input search="true" :placeholder="'Поиск пользователей'" />-->
             </div>
+            <Pagination
+                :current-page="getPagination?.currentPage"
+                :total-pages="getPagination?.pageTotal"
+                @page-change="pageChange"
+            />
             <VTable>
                 <template v-slot:thead>
                     <tr>
@@ -57,7 +69,7 @@ const pageChange = (e) => {
                 </template>
                 <template v-slot:tbody>
                     <tr v-for="user in getUsers?.[getPagination?.currentPage-1]?.activity">
-                        <td>
+                        <td @click="setUid(user?.user)">
                             <div class="user">
                                 <div class="img">
                                     <img :src="user?.user?.avatar_urls?.x100" alt="x100" />
@@ -87,6 +99,7 @@ const pageChange = (e) => {
                         <td class="b-1-compact activity">
                             <!--                            Установил игру <span class="b-1-medium">Фазенда</span>-->
                             {{ user?.text }}
+                            {{user?.game?.title}}
                         </td>
                         <td class="b-1-compact">
                             {{ user?.htime }}
@@ -99,6 +112,7 @@ const pageChange = (e) => {
                 :current-page="getPagination?.currentPage"
                 :total-pages="getPagination?.pageTotal"
                 @page-change="pageChange"
+                margin="true"
             />
         </div>
     </div>

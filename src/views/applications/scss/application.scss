@@ -32,13 +32,38 @@
                     display: flex;
                     gap: 8px;
 
-                    .dropdown-button {
-                        background: var(--violet-15);
-                        border-radius: 12px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 12px;
+                    .dropdown-block {
+                        position: relative;
+
+
+                        .dropdown-button {
+                            background: var(--violet-15);
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 12px;
+                            cursor: pointer;
+                        }
+
+                        .dropdown-menu {
+                            width: 271px;
+                            position: absolute;
+                            padding: 8px;
+                            border-radius: 12px;
+                            background: var(--white-primary);
+                            z-index: 1;
+                            right: 0;
+                            top: calc(100% + 8px);
+                            .dropdown-item {
+                                padding: 8px;
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                            }
+                        }
+
                     }
                 }
             }

@@ -5,18 +5,56 @@ import VTable from '@/components/ui/table/VTable.vue'
 import Pagination from '@/components/ui/pagination/Pagination.vue'
 import {usePaymentsStore} from "@/stores/payments";
 import {computed, onMounted, ref} from "vue";
+import Chart from 'chart.js/auto';
+import { getRelativePosition } from 'chart.js/helpers';
 
 
-onMounted(()=>{
-    payments.actionGetPayments()
+onMounted(async ()=>{
+    await payments.actionGetPayments()
+    await payments.actionGetPaymentsChart()
+    const chart = new Chart(document.getElementById('myChart'), {
+        type: 'line',
+        data: {
+            labels: getPaymentsChart.value.data.map(item => item.ftime),
+            datasets: [{
+                label: 'Count',
+                data: getPaymentsChart.value.data.map(item => item.count),
+                borderColor: 'rgb(75, 192, 192)',
+                borderWidth: 2,
+                fill: false,
+            },
+                {
+                    label: 'Sum',
+                    data: getPaymentsChart.value.data.map(item => item.sum),
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 2,
+                    fill: false,
+                },]
+        },
+        options: {
+            onClick: (e) => {
+                const canvasPosition = getRelativePosition(e, chart);
+
+                // Substitute the appropriate scale IDs
+                const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
+                const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
+            }
+        }
+    });
 })
 
 
 const payments = usePaymentsStore()
+const statuses = {
+
+    '1': 'Инициирован',
+    '2': 'Зачислен'
+}
 
 
 const getPayments =computed(()=>payments.getPayments)
 const getPagination = computed(() => payments.getPagination)
+const getPaymentsChart = computed(() => payments.getPaymentsChart)
 
 
 const pageChange = (e) => {
@@ -36,6 +74,11 @@ const formatDate = (timeS)=>{
 <template>
     <div class="payments-content">
         <PaymentHeader />
+        <Pagination
+            :current-page="getPagination?.currentPage"
+            :total-pages="getPagination?.pageTotal"
+            @page-change="pageChange"
+        />
         <VTable>
             <template v-slot:thead>
                 <tr>
@@ -82,7 +125,7 @@ const formatDate = (timeS)=>{
                         {{payment.value}}
                     </td>
                     <td class="b-1-compact b-1-medium">
-                        {{payment.status}}
+                        {{statuses[payment.status]??payment.status}}
                     </td>
                 </tr>
             </template>
@@ -91,7 +134,9 @@ const formatDate = (timeS)=>{
             :current-page="getPagination?.currentPage"
             :total-pages="getPagination?.pageTotal"
             @page-change="pageChange"
+            margin="true"
         />
+        <canvas id="myChart"></canvas>
     </div>
 </template>
 

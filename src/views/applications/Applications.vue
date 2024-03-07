@@ -50,12 +50,17 @@ const pageChange = (e) => {
                 <h1>Приложения</h1>
                 <div class="action-block">
                     <v-input search="true" @input="searchGame" :placeholder="'Поиск приложений'"/>
-                    <main-button icon="true" @click="$router.push({name:'Application'})">
-                        <plus-icon/>
-                        Добавить приложение
-                    </main-button>
+<!--                    <main-button icon="true" @click="$router.push({name:'Application'})">-->
+<!--                        <plus-icon/>-->
+<!--                        Добавить приложение-->
+<!--                    </main-button>-->
                 </div>
             </div>
+            <Pagination
+                :current-page="getPagination?.currentPage"
+                :total-pages="getPagination?.pageTotal"
+                @page-change="pageChange"
+            />
             <VTable>
                 <template v-slot:thead>
                     <tr>
@@ -114,6 +119,7 @@ const pageChange = (e) => {
                 :current-page="getPagination?.currentPage"
                 :total-pages="getPagination?.pageTotal"
                 @page-change="pageChange"
+                margin="true"
             />
         </div>
     </div>

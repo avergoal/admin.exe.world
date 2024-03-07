@@ -23,17 +23,12 @@ const typeStatuses = [
     },
     {
         id:2,
-        status: 'Проверен'
-    },
-    {
-        id:3,
         status: 'Зачислен'
     },
     {
-        id:4,
-        status: 'Зачислен модератором'
+        id:3,
+        status: 'Проверен'
     },
-
 ]
 const types = ref({})
 

@@ -22,6 +22,7 @@ export const useAppStore = defineStore('app', {
                 users.setActivityTypes(data.response.activity_types)
                 games.setApproveStatuses(data.response.approve_statuses)
                 games.setCategories(data.response.categories)
+                games.setLocales(data.response.locales)
                 payments.setPayments(data.response.payment_methods)
                 // game.setState('genre', data.response.categories)
                 media.setState('mediaTypes', data.response.media_types)

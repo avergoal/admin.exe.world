@@ -7,6 +7,13 @@ import {useUsersStore} from '@/stores/users'
 import MainButton from "@/components/ui/buttons/MainButton.vue";
 
 
+const props = defineProps({
+    uid:{
+        default:''
+    }
+})
+
+
 const users = useUsersStore()
 const form = ref({
     dates: '',
@@ -51,6 +58,12 @@ const createStringWithTrueKeys = (obj) => {
 
     return trueKeys.join(', ');
 }
+
+
+watch(props,()=>{
+    form.value.uid = props.uid
+    actionGetUsers()
+})
 </script>
 
 <template>

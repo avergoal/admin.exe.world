@@ -127,9 +127,9 @@ const uploadImage = (e) => {
 //     }
 // }
 //
-// watchEffect(() => {
-//     preloadSrc.value = props.src
-// })
+watchEffect(() => {
+    preloadSrc.value = props.src
+})
 </script>
 <template>
     <div class="cover">

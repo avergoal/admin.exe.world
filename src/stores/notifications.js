@@ -9,7 +9,7 @@ export const useNotificationsStore = defineStore('notifications', {
     },
     actions: {
         async saveNotification(params) {
-            await this.$axios.post('/admin.notification.save', params)
+            return await this.$axios.post('/admin.notifications.save', params)
         }
     }
 })

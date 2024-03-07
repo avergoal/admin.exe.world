@@ -10,6 +10,9 @@ const props = defineProps({
     maxVisiblePages: {
         type: Number,
         default: 5 // Number of visible page buttons
+    },
+    margin:{
+        default:false
     }
 })
 
@@ -38,7 +41,7 @@ const goToPage = (page) => {
 </script>
 
 <template>
-    <div class="pagination">
+    <div class="pagination" :class="{margin}">
         <button
             v-if="pages.length && currentPage > 1"
             class="prev page b-2-compact b-2-bold"

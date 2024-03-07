@@ -1,8 +1,11 @@
 .pagination {
-    margin-top: auto;
     display: flex;
     gap: 4px;
     justify-content: flex-end;
+
+    &.margin{
+        margin-top: auto;
+    }
 
     button {
         background: none;
