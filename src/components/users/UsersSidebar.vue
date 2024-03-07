@@ -63,7 +63,7 @@ const createStringWithTrueKeys = (obj) => {
 watch(props,()=>{
     form.value.uid = props.uid
     actionGetUsers()
-})
+},{deep:true})
 </script>
 
 <template>

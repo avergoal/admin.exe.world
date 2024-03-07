@@ -29,6 +29,15 @@ const pageChange = (e) => {
 const setUid = (user)=>{
     uid.value = user.uid
 }
+
+const toGameFriend = (game=null,user=null)=>{
+    if(game && game.gid){
+        window.open('https://exe.world/game/'+game.gid, '_blank');
+    }
+    if(user && user.uid){
+        window.open('https://exe.world/user/'+user.uid, '_blank');
+    }
+}
 </script>
 
 <template>
@@ -70,7 +79,7 @@ const setUid = (user)=>{
                 <template v-slot:tbody>
                     <tr v-for="user in getUsers?.[getPagination?.currentPage-1]?.activity">
                         <td @click="setUid(user?.user)">
-                            <div class="user">
+                            <div class="user cursor">
                                 <div class="img">
                                     <img :src="user?.user?.avatar_urls?.x100" alt="x100" />
                                 </div>
@@ -96,10 +105,11 @@ const setUid = (user)=>{
                                 {{ user?.user?.enabled ? 'Активен' : 'Забанен' }}
                             </p>
                         </td>
-                        <td class="b-1-compact activity">
+                        <td class="b-1-compact activity" @click="toGameFriend(user?.game,user?.friend)">
                             <!--                            Установил игру <span class="b-1-medium">Фазенда</span>-->
                             {{ user?.text }}
                             {{user?.game?.title}}
+                            {{user?.friend?.name}}
                         </td>
                         <td class="b-1-compact">
                             {{ user?.htime }}
