@@ -105,7 +105,7 @@ const toGameFriend = (game=null,user=null)=>{
                                 {{ user?.user?.enabled ? 'Активен' : 'Забанен' }}
                             </p>
                         </td>
-                        <td class="b-1-compact activity" @click="toGameFriend(user?.game,user?.friend)">
+                        <td class="b-1-compact activity cursor" @click="toGameFriend(user?.game,user?.friend)">
                             <!--                            Установил игру <span class="b-1-medium">Фазенда</span>-->
                             {{ user?.text }}
                             {{user?.game?.title}}
