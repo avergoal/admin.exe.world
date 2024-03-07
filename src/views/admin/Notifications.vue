@@ -2,12 +2,13 @@
 import VTextArea from '@/components/ui/form-elements/VTextArea.vue'
 import VDateInput from '@/components/ui/form-elements/VDateInput.vue'
 import MainButton from '@/components/ui/buttons/MainButton.vue'
-import VIconFile from '@/components/ui/form-elements/VIconFile.vue'
+// import VIconFile from '@/components/ui/form-elements/VIconFile.vue'
 import ClearAllIcon from '@/components/icons/ClearAllIcon.vue'
 import {computed, ref, watch} from "vue";
 import {useNotificationsStore} from "@/stores/notifications";
 import VInput from "@/components/ui/form-elements/VInput.vue";
 import {useGamesStore} from "@/stores/games";
+import notIcon from "@/assets/images/notification.jpg"
 
 
 const notifications = useNotificationsStore()
@@ -47,12 +48,19 @@ const saveNotification = async () => {
 }
 
 watch(form.value, async () => {
-    if (form.value.gid) {
-        let data = await gamesStore.actionGetGame(form.value.gid)
-        if(data){
-            preview.value = data.files?.find(item=>item.type == 1)?.filename??''
+    try {
+        if (form.value.gid) {
+            console.log('qwe')
+            let data = await gamesStore.actionGetGame(form.value.gid)
+            if(data){
+                preview.value = data.files?.find(item=>item.type == 1)?.filename??''
+            }
         }
+    }catch (e){
+        console.log(e)
+        preview.value =''
     }
+
 }, {deep: true})
 </script>
 
@@ -83,7 +91,7 @@ watch(form.value, async () => {
                     <div class="notification-items">
                         <div class="notification-item" v-if="checkExist">
                             <div class="icon">
-                                <img v-if="preview" :src="preview" alt="preview">
+                                <img :src="preview?preview:notIcon" alt="preview">
                             </div>
                             <div class="info">
                                 <div class="b-2-regular">{{ form.text.en }}</div>

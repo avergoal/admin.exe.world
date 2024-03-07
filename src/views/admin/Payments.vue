@@ -47,7 +47,7 @@ onMounted(async ()=>{
 const payments = usePaymentsStore()
 const statuses = {
 
-    '1': 'Инициирован',
+    '0': 'Инициирован',
     '2': 'Зачислен'
 }
 

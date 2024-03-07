@@ -18,16 +18,12 @@ const form = ref({
 })
 const typeStatuses = [
     {
-        id:1,
+        id:0,
         status: 'Инициирован'
     },
     {
         id:2,
         status: 'Зачислен'
-    },
-    {
-        id:3,
-        status: 'Проверен'
     },
 ]
 const types = ref({})
@@ -54,7 +50,7 @@ const resetFilter = () => {
     form.value = {
         dates: '',
         uid: '',
-        payment_system: '',
+        payment_system: 'all',
     }
     types.value = {}
     payments.setQuery({})

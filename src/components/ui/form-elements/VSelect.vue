@@ -19,9 +19,12 @@ const open = ref(false)
 
 const selected = computed(()=> {
     if(props.modelValue || props.modelValue === 0) {
+        console.log('qwe')
+
         let find = props.data?.find((item) => item[props.idType] == props.modelValue)?.[
             props.showSelect
             ]
+        console.log(find)
         return find ?? ''
     }
     return ''
