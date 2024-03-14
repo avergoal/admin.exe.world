@@ -87,7 +87,7 @@ const toGameFriend = (game=null,user=null)=>{
                                     <p class="b-1-compact b-1-bold">
                                         {{ user?.user?.first_name }} {{ user?.user?.last_name }}
                                     </p>
-                                    <p class="b-2-compact b-1-regular"></p>
+                                    <p class="b-2-compact b-1-regular">{{user?.user?.email}}</p>
                                 </div>
                             </div>
                         </td>

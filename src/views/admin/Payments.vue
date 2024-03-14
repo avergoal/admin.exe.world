@@ -4,7 +4,7 @@ import TableArrowIcon from '@/components/icons/table/TableArrowIcon.vue'
 import VTable from '@/components/ui/table/VTable.vue'
 import Pagination from '@/components/ui/pagination/Pagination.vue'
 import {usePaymentsStore} from "@/stores/payments";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted} from "vue";
 import Chart from 'chart.js/auto';
 import { getRelativePosition } from 'chart.js/helpers';
 
@@ -30,15 +30,6 @@ onMounted(async ()=>{
                     borderWidth: 2,
                     fill: false,
                 },]
-        },
-        options: {
-            onClick: (e) => {
-                const canvasPosition = getRelativePosition(e, chart);
-
-                // Substitute the appropriate scale IDs
-                const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-                const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-            }
         }
     });
 })
@@ -102,7 +93,7 @@ const formatDate = (timeS)=>{
             <template v-slot:tbody>
                 <tr v-for="payment in getPayments?.[getPagination?.currentPage-1]?.payments">
                     <td>
-                        <div class="user">
+                        <a class="user cursor" :href="`https://exe.world/user/${payment?.user?.uid}`" target="_blank">
                             <div class="img">
                                 <img :src="payment?.user?.avatar_urls?.x100" alt="x100" />
                             </div>
@@ -112,7 +103,7 @@ const formatDate = (timeS)=>{
                                 </p>
                                 <p class="b-2-compact b-1-regular"></p>
                             </div>
-                        </div>
+                        </a>
                     </td>
                     <td class="b-1-compact">{{ payment.pid }}</td>
                     <td class="b-1-compact b-1-medium">
