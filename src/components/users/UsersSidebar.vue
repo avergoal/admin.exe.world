@@ -6,7 +6,7 @@ import {computed, ref, watch} from 'vue'
 import {useUsersStore} from '@/stores/users'
 import MainButton from "@/components/ui/buttons/MainButton.vue";
 
-
+const emit = defineEmits(['resetUid'])
 const props = defineProps({
     uid:{
         default:''
@@ -42,6 +42,7 @@ const resetFilter = () => {
         session_num: '',
         is_guest: false,
     }
+    emit('resetUid')
     types.value = {}
     users.setQuery({})
     users.actionGetUsers()

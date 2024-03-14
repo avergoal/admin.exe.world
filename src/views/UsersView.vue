@@ -42,7 +42,7 @@ const toGameFriend = (game=null,user=null)=>{
 
 <template>
     <div class="users-content">
-        <users-sidebar :uid="uid"/>
+        <users-sidebar :uid="uid" @resetUid="uid = ''"/>
         <div class="users">
             <div class="header">
                 <h1>Пользователи</h1>
