@@ -57,15 +57,8 @@ onMounted(() => {
 })
 
 const convertDateRange = (inputDateRange) => {
-    const [startDate, endDate] = inputDateRange.split(' to ').map((date) => convertDateFormat(date))
+    const [startDate, endDate] = inputDateRange.split(' to ').map((date) => date)
     return `${startDate},${endDate}`
-}
-
-// Function to convert individual date
-const convertDateFormat = (inputDate) => {
-    const [day, month, year] = inputDate.split('.')
-    const formattedDate = `20${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    return formattedDate
 }
 
 const updateDate = (e) => {
@@ -108,6 +101,9 @@ const updateDate = (e) => {
 
 .flatpickr-day.inRange {
     color: #fff;
+    box-shadow: -5px 0 0 var(--violet-primary), 5px 0 0 var(--violet-primary) !important;
+}
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)){
     box-shadow: -5px 0 0 var(--violet-primary), 5px 0 0 var(--violet-primary) !important;
 }
 </style>

@@ -2,7 +2,7 @@
 const emit = defineEmits(['update:value'])
 
 const props = defineProps({
-    checked: Boolean
+    modelValue: Boolean
 })
 
 const toggleCheckBox = (e) => {
