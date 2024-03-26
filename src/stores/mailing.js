@@ -3,7 +3,7 @@ import {defineStore} from 'pinia'
 export const useMailsStore = defineStore('mails', {
     state: () => ({
         mails: [],
-        mailsStatuses: []
+        mailsStatuses: [],
     }),
     getters: {
         getMails: (state) => state?.mails,
@@ -17,10 +17,10 @@ export const useMailsStore = defineStore('mails', {
         },
         async actionGetMails() {
             const {data} = await this.$axios.post('/admin.mails')
-            this.notifications = data.response.notifications
+            this.mails = data.response.mails
         },
         setStatuses(statuses){
-            this.statuses = statuses
+            this.mailsStatuses = statuses
         }
     }
 })

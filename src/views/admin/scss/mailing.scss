@@ -32,5 +32,12 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        .actions{
+            color: var(--violet-primary);
+            button{
+                background: none;
+                color: var(--violet-primary);
+            }
+        }
     }
 }

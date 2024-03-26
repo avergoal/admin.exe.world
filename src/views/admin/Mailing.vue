@@ -29,6 +29,7 @@ const form = ref({
 
 
 const getMails = computed(() => mails.getMails)
+const getMailsStatuses = computed(() => mails.getMailsStatuses)
 
 
 const submit = () => {
@@ -114,6 +115,12 @@ const convertToFormData = (obj) => {
                         </td>
                         <td class="b-1-regular">
                             {{ timestampToDate(mail.data) }}
+                        </td>
+                        <td class="b-1-regular">
+                            {{ timestampToDate(mail.data) }}
+                        </td>
+                        <td class="b-1-regular">
+                            {{ getMailsStatuses[mail.status] }}
                         </td>
                         <td class="b-1-regular">
                             <div class="actions">
