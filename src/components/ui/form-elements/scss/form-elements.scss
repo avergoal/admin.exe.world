@@ -180,6 +180,9 @@ fieldset {
         font-size: 0;
         right: 12px;
         cursor: pointer;
+        &.close{
+            right: 36px;
+        }
     }
 
     .search-icon {

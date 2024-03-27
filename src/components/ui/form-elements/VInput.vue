@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, ref, defineEmits, watch } from 'vue'
-import VToggle from '@/components/ui/form-elements/VToggle.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeClosedIcon from '@/components/icons/EyeClosedIcon.vue'
 import SearchIcon from '@/components/icons/SearchIcon.vue'
@@ -92,7 +91,6 @@ const onInput = (event) => {
             <!--        <legend>-->
             <!--            <slot></slot>-->
             <!--        </legend>-->
-            <v-toggle v-if="toggle" />
             <div class="eye-icons" v-if="password" @click.stop="changeType">
                 <eye-icon v-if="type === 'password'" />
                 <eye-closed-icon v-if="type === 'text'" />

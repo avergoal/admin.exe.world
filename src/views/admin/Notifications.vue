@@ -11,6 +11,7 @@ import {useGamesStore} from "@/stores/games";
 import notIcon from "@/assets/images/notification.jpg"
 import VTable from "@/components/ui/table/VTable.vue";
 import timestampToDate from "@/mixins/timestampToDate";
+import {useModalStore} from "@/stores/modal";
 
 
 onMounted(() => {
@@ -20,6 +21,7 @@ onMounted(() => {
 
 const notifications = useNotificationsStore()
 const gamesStore = useGamesStore()
+const modalStore = useModalStore()
 const form = ref({
     text: {
         en: ''
@@ -81,13 +83,7 @@ const edit = async (not) => {
     }
 }
 
-const deleteNotification = (notification)=>{
-    let params = {
-        session:notification.session,
-        id:notification.nid
-    }
-    notifications.actionDeleteNotificationById(params)
-}
+
 
 
 watch(form.value, async () => {
@@ -180,7 +176,7 @@ watch(form.value, async () => {
                         </td>
                         <td class="b-1-regular">
                             <div class="actions">
-                                <button class="b-2-regular" @click="deleteNotification(notification)">delete</button>
+                                <button class="b-2-regular" @click="modalStore.setModal({open:true,target:'delete-notification',data:{...notification}})">delete</button>
                                 |
                                 <button class="b-2-regular" @click="edit(notification)">edit</button>
                             </div>

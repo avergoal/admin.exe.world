@@ -19,6 +19,10 @@ export const useMailsStore = defineStore('mails', {
             const {data} = await this.$axios.post('/admin.mails')
             this.mails = data.response.mails
         },
+        async actionGetMailById(id) {
+            const {data} = await this.$axios.post('/admin.mails.details',{id})
+            return data.response.mail
+        },
         setStatuses(statuses){
             this.mailsStatuses = statuses
         }

@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 import DateIcon from '@/components/icons/DateIcon.vue'
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
+import CloseIcon from "@/components/icons/CloseIcon.vue";
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -26,6 +27,9 @@ const props = defineProps({
     },
     dateFormat:{
         default:''
+    },
+    resetIcon:{
+        default:false
     }
 })
 
@@ -35,7 +39,7 @@ onMounted(() => {
     const params = {
         enableTime: false,
         time_24hr: false,
-        dateFormat: props.dateFormat.length?props.dateFormat:'d-m-y',
+        dateFormat: props.dateFormat.length?props.dateFormat:'Y-m-d',
         closeOnSelect: true,
         onChange: function (selectedDates, dateStr, instance) {
             // Update flatpickrRef.value with the selected date or time
@@ -60,7 +64,6 @@ const convertDateRange = (inputDateRange) => {
     const [startDate, endDate] = inputDateRange.split(' to ').map((date) => date)
     return `${startDate},${endDate}`
 }
-
 const updateDate = (e) => {
     if (e.target.value.includes('to') ) {
         emit('update:modelValue', convertDateRange(e.target.value))
@@ -82,6 +85,7 @@ const updateDate = (e) => {
                 class="b-1-regular date"
                 :placeholder="placeholder"
             />
+            <CloseIcon @click.stop=" emit('update:modelValue','')" class="date-icon close" v-if="resetIcon && modelValue"/>
             <DateIcon class="date-icon" v-if="dateType === 'date'" />
             <DropdownIcon class="date-icon" v-else />
         </fieldset>

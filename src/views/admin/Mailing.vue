@@ -2,8 +2,6 @@
 import VDateInput from '@/components/ui/form-elements/VDateInput.vue'
 import VInput from '@/components/ui/form-elements/VInput.vue'
 import VToggle from '@/components/ui/form-elements/VToggle.vue'
-import VSelect from '@/components/ui/form-elements/VSelect.vue'
-import VTextArea from '@/components/ui/form-elements/VTextArea.vue'
 import MainButton from '@/components/ui/buttons/MainButton.vue'
 import timestampToDate from "@/mixins/timestampToDate";
 import VTable from "@/components/ui/table/VTable.vue";
@@ -47,6 +45,18 @@ const submit = () => {
     }
 }
 
+const edit = async (m) => {
+    const data = await mails.actionGetMailById(m.id)
+    if (data) {
+        form.value.date = data.date[0] ?? ''
+        form.value.gids = data.gids.join(',')
+        form.value.payer = data.payer
+        form.value.subject = data.subject
+        form.value.start = data.start
+        form.value.archive = ''
+    }
+}
+
 const convertToFormData = (obj) => {
     const formData = new FormData();
     for (const key in obj) {
@@ -63,7 +73,7 @@ const convertToFormData = (obj) => {
         <h1>Рассылки</h1>
         <form class="form" @submit.prevent="submit">
             <div class="date">
-                <VDateInput dateFormat="Y-m-d" v-model="form.date" placeholder="Выберите дату"
+                <VDateInput dateFormat="Y-m-d" v-model="form.date" placeholder="Выберите дату" reset-icon="true"
                             title="Последнее посещение"/>
                 <VInput v-model="form.gids" placeholder="000000" title="GID"/>
             </div>
@@ -111,22 +121,22 @@ const convertToFormData = (obj) => {
                             {{ mail.subject }}
                         </td>
                         <td class="b-1-regular">
-                            {{ timestampToDate(mail.data) }}
+                            {{ timestampToDate(mail.date_added) }}
                         </td>
                         <td class="b-1-regular">
-                            {{ timestampToDate(mail.data) }}
+                            {{ timestampToDate(mail.date_added) }}
                         </td>
                         <td class="b-1-regular">
-                            {{ timestampToDate(mail.data) }}
+                            {{ mail.users }}
                         </td>
                         <td class="b-1-regular">
                             {{ getMailsStatuses[mail.status] }}
                         </td>
                         <td class="b-1-regular">
                             <div class="actions">
-                                <button class="b-2-regular" @click="">view</button>
+                                <a class="b-2-regular" :href="mail.url">view</a>
                                 |
-                                <button class="b-2-regular" @click="">edit</button>
+                                <button class="b-2-regular" @click="edit(mail)">edit</button>
                             </div>
                         </td>
                     </tr>

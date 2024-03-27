@@ -38,7 +38,7 @@ const handleFileChange = (event) => {
             <span class="b-1-medium">{{ name }}</span>
             <delete-icon @click="deleteFile" v-if="!loading" />
         </div>
-        <main-button :icon="true" :file="true" @click="file.click()">
+        <main-button type="button" :icon="true" :file="true" @click="file.click()">
             <plus-icon />
             attach file
         </main-button>
