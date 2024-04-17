@@ -9,6 +9,7 @@ import Pagination from '@/components/ui/pagination/Pagination.vue'
 import VTable from '@/components/ui/table/VTable.vue'
 import { useUsersStore } from '@/stores/users'
 import {computed, onMounted, ref} from 'vue'
+import timestampToDate from "../mixins/timestampToDate";
 
 
 onMounted(async () => {
@@ -112,7 +113,7 @@ const toGameFriend = (game=null,user=null)=>{
                             {{user?.friend?.name}}
                         </td>
                         <td class="b-1-compact">
-                            {{ user?.htime }}
+                            {{ timestampToDate(user?.timestamp) }}
                         </td>
                         <table-menu :type="'users'" :user="user" />
                     </tr>
